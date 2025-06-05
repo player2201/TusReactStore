@@ -15,7 +15,7 @@ export default function AboutPage() {
 
   return (
     <Container maxWidth="lg">
-      <Typography gutterBottom variant="h3">
+        <Typography gutterBottom variant="h3">
         Errors for testing
       </Typography>
       <ButtonGroup fullWidth>
