@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit/query";
 import { startLoading, stopLoading } from "../layout/uiSlice";
 import { toast } from "react-toastify";
+import { router } from "../routes/Routes";
 
 const customBaseQuery = fetchBaseQuery({
   baseUrl: "https://localhost:5001/api",
@@ -51,7 +52,7 @@ export const baseQueryWithErrorHandling = async (
         break;
       case 500:
         if (typeof responseData === "object" && "title" in responseData)
-          toast.error(responseData.title);
+          router.navigate("/server-error", { state: { error: responseData } });
         break;
       default:
         break;
