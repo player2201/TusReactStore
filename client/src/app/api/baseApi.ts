@@ -10,6 +10,8 @@ const customBaseQuery = fetchBaseQuery({
   baseUrl: "https://localhost:5001/api",
 });
 
+type ErrorResponse = string | { title: string } | { errors: string[] };
+
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
 export const baseQueryWithErrorHandling = async (
   args: string | FetchArgs,
@@ -21,19 +23,36 @@ export const baseQueryWithErrorHandling = async (
   const result = await customBaseQuery(args, api, extraOptions);
   api.dispatch(stopLoading());
   if (result.error) {
+    console.log(result.error);
+
     const originalStatus =
       result.error.status === "PARSING_ERROR" && result.error.originalStatus
         ? result.error.originalStatus
         : result.error.status;
-    const responseData = result.error.data;
+
+    const responseData = result.error.data as ErrorResponse;
+
     switch (originalStatus) {
       case 400:
-        toast.error(responseData as string);
-        break;
-      case 401:
-        toast.error(responseData.title);
+        if (typeof responseData === "string") {
+          toast.error(responseData);
+        } else if ("errors" in responseData) {
+          throw Object.values(responseData.errors).flat().join(", ");
+        } else toast.error(responseData.title);
         break;
 
+      case 401:
+        if (typeof responseData === "object" && "title" in responseData)
+          toast.error(responseData.title);
+        break;
+      case 404:
+        if (typeof responseData === "object" && "title" in responseData)
+          toast.error(responseData.title);
+        break;
+      case 500:
+        if (typeof responseData === "object" && "title" in responseData)
+          toast.error(responseData.title);
+        break;
       default:
         break;
     }
