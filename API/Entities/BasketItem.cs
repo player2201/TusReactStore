@@ -1,4 +1,5 @@
 namespace API.Entities;
+
 public class BasketItem
 {
     public int Id { get; set; }
