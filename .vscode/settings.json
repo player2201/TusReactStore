@@ -1,5 +1,5 @@
 {
-  "editor.defaultFormatter": "csharpier.csharpier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "dotnet.server.useOmnisharp": false,
   "[jsonc]": {
