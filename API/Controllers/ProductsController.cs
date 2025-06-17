@@ -1,6 +1,7 @@
 using API.Data;
 using API.Entities;
 using API.Extensions;
+using API.RequestHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,14 @@ namespace API.Controllers
     {
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts(
-            string? orderBy,
-            string? searchTerm
+            [FromQuery] ProductParams productParams
         )
         {
-            var query = context.Products.Sort(orderBy).Search(searchTerm).AsQueryable();
+            var query = context.Products
+                .Sort(productParams.OrderBy)
+                .Search(productParams.SearchTerm)
+                .Filter(productParams.Brands, productParams.Types)
+                .AsQueryable();
 
             return await query.ToListAsync();
         }
