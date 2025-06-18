@@ -10,7 +10,7 @@ public class PagedList<T> : List<T>
     {
         Metadata = new PaginationMetadata
         {
-            TotalCount = Count,
+            TotalCount = count,
             PageSize = pageSize,
             CurrentPage = pageNumber,
             TotalPages = (int)Math.Ceiling(count / (double)pageSize)
