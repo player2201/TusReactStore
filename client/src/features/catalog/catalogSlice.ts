@@ -5,6 +5,7 @@ const initialState: ProductParams = {
   pageNumber: 1,
   pageSize: 8,
   types: [],
+  brands: [],
   searchTerm: "",
   orderBy: "name",
 };
