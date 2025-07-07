@@ -31,8 +31,8 @@ public class DbInitializer
             await userManager.AddToRoleAsync(user, "Member");
 
             var admin = new User { UserName = "admin@test.com", Email = "admin@test.com" };
-            await userManager.CreateAsync(user, "Pa$$w0rd");
-            await userManager.AddToRolesAsync(user, ["Member","Admin"]);
+            await userManager.CreateAsync(admin, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(admin, ["Member", "Admin"]);
         }
 
         if (context.Products.Any())
