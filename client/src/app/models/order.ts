@@ -15,7 +15,7 @@ export interface Order {
 export interface ShippingAddress {
   name: string;
   line1: string;
-  line2?: string;
+  line2?: string | null;
   city: string;
   postal_code: string;
   country: string;
@@ -30,10 +30,10 @@ export interface OrderItem {
 }
 
 export interface PaymentSummary {
-  last4: number;
+  last4: number | string;
   brand: string;
-  expMonth: number;
-  expYear: number;
+  exp_month: number;
+  exp_year: number;
 }
 
 export interface CreateOrder {
