@@ -2,7 +2,6 @@ using System;
 using API.DTOs;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 
 namespace API.Extensions;
 
@@ -14,7 +13,7 @@ public static class BasketExtensions
         {
             BasketId = basket.BasketId,
             ClientSecret = basket.ClientSecret,
-            PaymentIntentId = basket.PaymentIntentId, 
+            PaymentIntentId = basket.PaymentIntentId,
             Items = basket.Items
                 .Select(
                     x =>
