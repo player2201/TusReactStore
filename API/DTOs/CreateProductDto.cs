@@ -19,10 +19,10 @@ public class CreateProductDto
     public string PictureUrl { get; set; } = string.Empty;
 
     [Required]
-    public string Type { get; set; }
+    public required string Type { get; set; }
 
     [Required]
-    public string Brand { get; set; }
+    public required string Brand { get; set; }
 
     [Required]
     [Range(0, 200)]
