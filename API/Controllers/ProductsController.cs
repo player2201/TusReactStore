@@ -1,7 +1,9 @@
 using API.Data;
+using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.RequestHelpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +48,22 @@ namespace API.Controllers
             var brands = await context.Products.Select(x => x.Brand).Distinct().ToListAsync();
             var types = await context.Products.Select(x => x.Type).Distinct().ToListAsync();
             return Ok(new { brands, types });
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
+        {
+            var product = new Product { Name = productDto.Name };
+
+            context.Products.Add(product);
+
+            var result = await context.SaveChangesAsync() > 0;
+
+            if (result)
+                return CreatedAtAction(nameof(GetProduct), new { Id = product.Id }, product);
+
+            return BadRequest("Problem creating new product");
         }
     }
 }
