@@ -51,6 +51,7 @@ namespace API.Controllers
             return Ok(new { brands, types });
         }
 
+        //Create a product
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
@@ -65,6 +66,25 @@ namespace API.Controllers
                 return CreatedAtAction(nameof(GetProduct), new { Id = product.Id }, product);
 
             return BadRequest("Problem creating new product");
+        }
+
+        //Update a Product
+        [Authorize(Roles = "Admin")]
+        [HttpPut]
+        public async Task<ActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var product = await context.Products.FindAsync(updateProductDto.Id);
+
+            if (product == null)
+                return NotFound();
+
+            mapper.Map(updateProductDto, product);
+
+            var result = await context.SaveChangesAsync() > 0;
+
+            if (result)
+                return NoContent();
+            return BadRequest("Problem updating product");
         }
     }
 }
