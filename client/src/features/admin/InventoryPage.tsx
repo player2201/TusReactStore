@@ -16,11 +16,16 @@ import { currencyFormat } from "../../lib/util";
 import { Delete, Edit } from "@mui/icons-material";
 import AppPagination from "../../app/shared/components/AppPagination";
 import { setPageNumber } from "../catalog/catalogSlice";
+import { useState } from "react";
+import ProductForm from "./ProductForm";
 
 export default function InventoryPage() {
   const productParams = useAppSelector((state) => state.catalog);
   const { data } = useFetchProductsQuery(productParams);
   const dispatch = useAppDispatch();
+  const [editMode, setEditMode] = useState(false);
+
+  if (editMode) return <ProductForm />;
 
   return (
     <>
@@ -28,7 +33,12 @@ export default function InventoryPage() {
         <Typography sx={{ p: 2 }} variant="h4">
           Inventory
         </Typography>
-        <Button sx={{ m: 2 }} size="large" variant="contained">
+        <Button
+          onClick={() => setEditMode(true)}
+          sx={{ m: 2 }}
+          size="large"
+          variant="contained"
+        >
           Create
         </Button>
       </Box>
