@@ -52,6 +52,7 @@ export default function InventoryPage() {
               <TableCell align="center">Price</TableCell>
               <TableCell align="center">Brand</TableCell>
               <TableCell align="center">Quantity</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -81,9 +82,6 @@ export default function InventoryPage() {
                   </TableCell>
                   <TableCell align="center">{product.type}</TableCell>
                   <TableCell align="center">{product.brand}</TableCell>
-                  <TableCell align="center">
-                    {product.quantityInStock}
-                  </TableCell>
                   <TableCell align="center">
                     {product.quantityInStock}
                   </TableCell>
