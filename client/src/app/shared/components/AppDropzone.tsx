@@ -15,9 +15,17 @@ type Props<T extends FieldValues> = {
 export default function AppDropzone<T extends FieldValues>(props: Props<T>) {
   const { fieldState, field } = useController({ ...props });
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (acceptedFiles.length > 0) {
+        const fileWithPreview = Object.assign(acceptedFiles[0], {
+          preview: URL.createObjectURL(acceptedFiles[0]),
+        });
+        field.onChange(fileWithPreview);
+      }
+    },
+    [field]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -25,8 +33,8 @@ export default function AppDropzone<T extends FieldValues>(props: Props<T>) {
 
   const dzStyles = {
     display: "flex",
-    border: "dashed 3px #eee",
-    borderColor: "#eee",
+    border: "dashed 2px #767676",
+    borderColor: "#767676",
     borderRadius: "5px",
     paddingTop: "30px",
     alignItems: "center",
@@ -45,8 +53,10 @@ export default function AppDropzone<T extends FieldValues>(props: Props<T>) {
         error={!!fieldState.error}
       >
         <input {...getInputProps()} />
-        <UploadFile sx={{ fontSize: "100px" }} />
-        <Typography variant="h4"> Drop image here</Typography>
+        <UploadFile sx={{ fontSize: "100px", color: "#767676" }} />
+        <Typography variant="h4" sx={{ color: "#767676" }}>
+          Drop image here
+        </Typography>
         <FormHelperText>{fieldState.error?.message}</FormHelperText>
       </FormControl>
     </div>

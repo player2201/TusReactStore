@@ -11,11 +11,12 @@ import AppSelectInput from "../../app/shared/components/AppSelectInput";
 import AppDropzone from "../../app/shared/components/AppDropzone";
 
 export default function ProductForm() {
-  const { control, handleSubmit } = useForm<CreateProductSchema>({
+  const { control, handleSubmit, watch } = useForm<CreateProductSchema>({
     mode: "onTouched",
     resolver: zodResolver(createProductSchema),
   });
 
+  const watchFile = watch("file");
   const { data } = useFetchFiltersQuery();
 
   const onSubmit = (data: CreateProductSchema) => {
@@ -77,8 +78,21 @@ export default function ProductForm() {
               label="Description"
             />
           </Grid2>
-          <Grid2 size={12}>
+          <Grid2
+            size={12}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <AppDropzone name="file" control={control} />
+            {watchFile && (
+              <img
+                /*src={URL.createObjectURL(watchFile as File)}*/
+                src={watchFile.preview}
+                alt="preview of image"
+                style={{ maxHeight: 200 }}
+              />
+            )}
           </Grid2>
         </Grid2>
         <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
