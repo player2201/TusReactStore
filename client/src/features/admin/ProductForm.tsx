@@ -8,6 +8,7 @@ import AppTextInput from "../../app/shared/components/AppTextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFetchFiltersQuery } from "../catalog/catalogApi";
 import AppSelectInput from "../../app/shared/components/AppSelectInput";
+import AppDropzone from "../../app/shared/components/AppDropzone";
 
 export default function ProductForm() {
   const { control, handleSubmit } = useForm<CreateProductSchema>({
@@ -77,7 +78,7 @@ export default function ProductForm() {
             />
           </Grid2>
           <Grid2 size={12}>
-            <AppTextInput control={control} name="file" label="Image" />
+            <AppDropzone name="file" control={control} />
           </Grid2>
         </Grid2>
         <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
