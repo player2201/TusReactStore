@@ -93,7 +93,7 @@ export default function InventoryPage() {
               ))}
           </TableBody>
         </Table>
-        <Box>
+        <Box sx={{ p: 3 }}>
           {data?.pagination && data.items.length > 0 && (
             <AppPagination
               metadata={data.pagination}
