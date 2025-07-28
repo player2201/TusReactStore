@@ -18,14 +18,22 @@ import AppPagination from "../../app/shared/components/AppPagination";
 import { setPageNumber } from "../catalog/catalogSlice";
 import { useState } from "react";
 import ProductForm from "./ProductForm";
+import type { Product } from "../../app/models/product";
 
 export default function InventoryPage() {
   const productParams = useAppSelector((state) => state.catalog);
   const { data } = useFetchProductsQuery(productParams);
   const dispatch = useAppDispatch();
   const [editMode, setEditMode] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  if (editMode) return <ProductForm />;
+  const handleSelectedProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setEditMode(true);
+  };
+
+  if (editMode)
+    return <ProductForm setEditMode={setEditMode} product={selectedProduct} />;
 
   return (
     <>
@@ -86,7 +94,10 @@ export default function InventoryPage() {
                     {product.quantityInStock}
                   </TableCell>
                   <TableCell align="right">
-                    <Button startIcon={<Edit />} />
+                    <Button
+                      onClick={() => handleSelectedProduct(product)}
+                      startIcon={<Edit />}
+                    />
                     <Button startIcon={<Delete />} color="error" />
                   </TableCell>
                 </TableRow>

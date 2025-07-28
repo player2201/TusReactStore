@@ -32,12 +32,20 @@ export default function ProductCard({ product }: Props) {
         sx={{ height: 240, backgroundSize: "over" }}
         image={product.pictureUrl}
         title={product.name}
+        component={Link}
+        to={`/catalog/${product.id}`}
       />
       <CardContent>
         <Typography
           gutterBottom
-          sx={{ textTransform: "uppercase" }}
+          sx={{
+            textTransform: "uppercase",
+            color: "inherit",
+            textDecoration: "none",
+          }}
           variant="subtitle2"
+          component={Link}
+          to={`/catalog/${product.id}`}
         >
           {product.name}
         </Typography>

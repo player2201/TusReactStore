@@ -9,15 +9,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFetchFiltersQuery } from "../catalog/catalogApi";
 import AppSelectInput from "../../app/shared/components/AppSelectInput";
 import AppDropzone from "../../app/shared/components/AppDropzone";
+import { useEffect } from "react";
+import type { Product } from "../../app/models/product";
 
-export default function ProductForm() {
-  const { control, handleSubmit, watch } = useForm<CreateProductSchema>({
+type Props = {
+  setEditMode: (value: boolean) => void;
+  product: Product | null;
+};
+
+export default function ProductForm({ setEditMode, product }: Props) {
+  const { control, handleSubmit, watch, reset } = useForm<CreateProductSchema>({
     mode: "onTouched",
     resolver: zodResolver(createProductSchema),
   });
 
   const watchFile = watch("file");
   const { data } = useFetchFiltersQuery();
+
+  useEffect(() => {
+    if (product) reset(product);
+  }, [product, reset]);
 
   const onSubmit = (data: CreateProductSchema) => {
     console.log(data);
@@ -85,10 +96,16 @@ export default function ProductForm() {
             alignItems="center"
           >
             <AppDropzone name="file" control={control} />
-            {watchFile && (
+            {watchFile ? (
               <img
-                /*src={URL.createObjectURL(watchFile as File)}*/
+                //src={URL.createObjectURL(watchFile as File)}
                 src={watchFile.preview}
+                alt="preview of image"
+                style={{ maxHeight: 200 }}
+              />
+            ) : (
+              <img
+                src={product?.pictureUrl}
                 alt="preview of image"
                 style={{ maxHeight: 200 }}
               />
@@ -96,7 +113,11 @@ export default function ProductForm() {
           </Grid2>
         </Grid2>
         <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
-          <Button variant="contained" color="inherit">
+          <Button
+            onClick={() => setEditMode(false)}
+            variant="contained"
+            color="inherit"
+          >
             Cancel
           </Button>
           <Button variant="contained" color="success" type="submit">
