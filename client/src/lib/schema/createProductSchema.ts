@@ -20,7 +20,7 @@ export const createProductSchema = z
       .number({ required_error: "Quantity is required" })
       .min(1, "Quantity must be at least 1"),
     pictureUrl: z.string().optional(),
-    file: fileSchema,
+    file: fileSchema.optional(),
   })
   .refine((data) => data.pictureUrl || data.file, {
     message: "Please provide an image",

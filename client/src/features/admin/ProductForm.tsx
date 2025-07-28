@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues } from "react-hook-form";
 import {
   createProductSchema,
   type CreateProductSchema,
@@ -11,27 +11,81 @@ import AppSelectInput from "../../app/shared/components/AppSelectInput";
 import AppDropzone from "../../app/shared/components/AppDropzone";
 import { useEffect } from "react";
 import type { Product } from "../../app/models/product";
+import { useCreateProductMutation, useUpdateProductMutation } from "./adminApi";
+import { handleApiError } from "../../lib/util";
 
 type Props = {
   setEditMode: (value: boolean) => void;
   product: Product | null;
+  refetch: () => void;
+  setSelectedProduct: (value: Product | null) => void;
 };
 
-export default function ProductForm({ setEditMode, product }: Props) {
-  const { control, handleSubmit, watch, reset } = useForm<CreateProductSchema>({
+export default function ProductForm({
+  setEditMode,
+  product,
+  refetch,
+  setSelectedProduct,
+}: Props) {
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    setError,
+    formState: { isSubmitting },
+  } = useForm<CreateProductSchema>({
     mode: "onTouched",
     resolver: zodResolver(createProductSchema),
   });
 
   const watchFile = watch("file");
   const { data } = useFetchFiltersQuery();
+  const [createProduct] = useCreateProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   useEffect(() => {
     if (product) reset(product);
-  }, [product, reset]);
 
-  const onSubmit = (data: CreateProductSchema) => {
-    console.log(data);
+    return () => {
+      if (watchFile) URL.revokeObjectURL(watchFile.preview);
+    };
+  }, [product, reset, watchFile]);
+
+  const createFormData = (items: FieldValues) => {
+    const formData = new FormData();
+    for (const key in items) {
+      formData.append(key, items[key]);
+    }
+
+    return formData;
+  };
+
+  const onSubmit = async (data: CreateProductSchema) => {
+    try {
+      const formData = createFormData(data);
+
+      if (watchFile) formData.append("file", watchFile);
+
+      if (product)
+        await updateProduct({ id: product.id, data: formData }).unwrap();
+      else await createProduct(formData).unwrap();
+      setEditMode(false);
+      setSelectedProduct(null);
+      refetch();
+    } catch (error) {
+      console.log(error);
+      handleApiError<CreateProductSchema>(error, setError, [
+        "brand",
+        "description",
+        "file",
+        "name",
+        "pictureUrl",
+        "price",
+        "quantityInStock",
+        "type",
+      ]);
+    }
   };
 
   return (
@@ -96,20 +150,20 @@ export default function ProductForm({ setEditMode, product }: Props) {
             alignItems="center"
           >
             <AppDropzone name="file" control={control} />
-            {watchFile ? (
+            {watchFile?.preview ? (
               <img
                 //src={URL.createObjectURL(watchFile as File)}
                 src={watchFile.preview}
                 alt="preview of image"
                 style={{ maxHeight: 200 }}
               />
-            ) : (
+            ) : product?.pictureUrl ? (
               <img
                 src={product?.pictureUrl}
                 alt="preview of image"
                 style={{ maxHeight: 200 }}
               />
-            )}
+            ) : null}
           </Grid2>
         </Grid2>
         <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
@@ -120,7 +174,12 @@ export default function ProductForm({ setEditMode, product }: Props) {
           >
             Cancel
           </Button>
-          <Button variant="contained" color="success" type="submit">
+          <Button
+            loading={isSubmitting}
+            variant="contained"
+            color="success"
+            type="submit"
+          >
             Submit
           </Button>
         </Box>
