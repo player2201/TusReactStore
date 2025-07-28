@@ -39,7 +39,8 @@ export default function ProductForm({
     resolver: zodResolver(createProductSchema),
   });
 
-  const watchFile = watch("file");
+  type FileWithPreview = File & { preview: string };
+  const watchFile = watch("file") as FileWithPreview | undefined;
   const { data } = useFetchFiltersQuery();
   const [createProduct] = useCreateProductMutation();
   const [updateProduct] = useUpdateProductMutation();
