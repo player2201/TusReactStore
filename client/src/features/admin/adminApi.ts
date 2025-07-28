@@ -17,7 +17,7 @@ export const adminApi = createApi({
     }),
     updateProduct: builder.mutation<void, { id: number; data: FormData }>({
       query: ({ id, data }) => {
-        data.append("id", id.toString())
+        data.append("id", id.toString());
 
         return {
           url: "products",
@@ -26,6 +26,18 @@ export const adminApi = createApi({
         };
       },
     }),
+    deleteProduct: builder.mutation<void, number>({
+      query: (id: number) => {
+        return {
+          url: `products/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
-export const { useCreateProductMutation, useUpdateProductMutation } = adminApi;
+export const {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
+} = adminApi;
