@@ -55,7 +55,7 @@ Open the terminal and enter these commands:
     ```sh
     dotnet run
     ```
-    or
+   or
    ```sh
     dotnet watch
     ```
@@ -76,10 +76,10 @@ Open a different terminal and enter these commmands:
    ```sh
    npm start
    ```
-  or  
-  ```sh
-    npm run dev
-  ```
+   or  
+   ```sh
+   npm run dev
+   ```
 #### Existing Users
 - **Admin**
     - username/email: `admin@test.com`
