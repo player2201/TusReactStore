@@ -77,9 +77,9 @@ Open a different terminal and enter these commmands:
    npm start
    ```
   or  
-   ```sh
-   npm run dev
-   ```
+  ```sh
+    npm run dev
+  ```
 #### Existing Users
 - **Admin**
     - username/email: `admin@test.com`
