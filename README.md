@@ -1,5 +1,7 @@
 # TusReactStore fake E-commerece store project
+
 ## Description
+
 TusReactStore is a full-stack, fake e-commerce store front made for learning key modern technologies:
 - Frontend: React, TypeScript, Redux Toolkit, Material-UI
 - Backend: ASP.NET Core 9.0 Web API (C#) with Entity Framework Core
@@ -60,24 +62,24 @@ Open the terminal and enter these commands:
 
 #### Frontend
 
-Open a different terminal and enter these commmands;
+Open a different terminal and enter these commmands:
 
 1. Navigate to client folder:
-  ```sh
-  cd client
-  ```
+   ```sh
+   cd client
+   ```
 2. Install dependencies:
-  ```sh
-  npm install
-  ```
+   ```sh
+   npm install
+   ```
 3. Run the frontend:
-  ```sh
-  npm start
-  ```
-  or
-  ```sh
-  npm run dev
-  ```
+   ```sh
+   npm start
+   ```
+  or  
+   ```sh
+   npm run dev
+   ```
 #### Existing Users
 - **Admin**
     - username/email: `admin@test.com`
