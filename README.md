@@ -54,7 +54,7 @@ Open the terminal and enter these commands:
     dotnet run
     ```
     or
-       ```sh
+   ```sh
     dotnet watch
     ```
 
@@ -79,7 +79,12 @@ Open a different terminal and enter these commmands;
   npm run dev
   ```
 #### Existing Users
-- 
+- **Admin**
+    - username/email: `admin@test.com`
+    - password: `Pa$$w0rd`
+- **Customer**
+    - username/email: `bob@test.com`
+    - password: `Pa$$w0rd`
 
 #### Configuration
 
