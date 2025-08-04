@@ -2,7 +2,7 @@
 
 ## Description
 
-TusReactStore is a full-stack, fake e-commerce store front made for learning key modern technologies:
+TusReactStore is a full-stack, fake e-commerce store front made for the purpose learning key modern technologies:
 - Frontend: React, TypeScript, Redux Toolkit, Material-UI
 - Backend: ASP.NET Core 9.0 Web API (C#) with Entity Framework Core
 
