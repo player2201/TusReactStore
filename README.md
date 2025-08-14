@@ -6,6 +6,12 @@ TusReactStore is a full-stack, fake e-commerce store front made for the purpose 
 - Frontend: React, TypeScript, Redux Toolkit, Material-UI
 - Backend: ASP.NET Core 9.0 Web API (C#) with Entity Framework Core
 
+#### Deployment
+Youtube demo video here : [Link](https://youtu.be/_YESWfte0uw) or : https://youtu.be/_YESWfte0uw
+My project is deployed here: [Project](https://tusreactstore.azurewebsites.net/)  
+or: https://tusreactstore.azurewebsites.net/  
+If the hosted page has 500.30 error, this means that I am using a free Azure license and its runtime is out. Please contact me if you want to test the site and I can restart the site but it only runs for 1 hour then it is down again :)
+
 ## Features
 - User registration and authentication
 - Product catalog and order management
@@ -93,8 +99,4 @@ Open a different terminal and enter these commmands:
 - Update file `appsetings.json` in the API project with your SQL Server and Cloudinary credentials.
 - Update your Stripe keys as needed in `appsettings.Development.json`.  
 
-#### Deployment
 
-My project is deployed here: [Project](https://tusreactstore.azurewebsites.net/)  
-or: https://tusreactstore.azurewebsites.net/  
-If the hosted page has 500.30 error, this means that I am using a free Azure license and its runtime is out. Please contact me if you want to test the site and I can restart the site but it only runs for 1 hour then it is down again :)
