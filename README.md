@@ -7,9 +7,10 @@ TusReactStore is a full-stack, fake e-commerce store front made for the purpose 
 - Backend: ASP.NET Core 9.0 Web API (C#) with Entity Framework Core
 
 #### Deployment
-Youtube demo video here : [Link](https://youtu.be/_YESWfte0uw) or : https://youtu.be/_YESWfte0uw
-My project is deployed here: [Project](https://tusreactstore.azurewebsites.net/)  
-or: https://tusreactstore.azurewebsites.net/  
+- Youtube demo video here : [Link](https://youtu.be/_YESWfte0uw)
+- or : https://youtu.be/_YESWfte0uw
+- My project is deployed here: [Project](https://tusreactstore.azurewebsites.net/)  
+- or: https://tusreactstore.azurewebsites.net/  
 If the hosted page has 500.30 error, this means that I am using a free Azure license and its runtime is out. Please contact me if you want to test the site and I can restart the site but it only runs for 1 hour then it is down again :)
 
 ## Features
